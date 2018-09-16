@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的导航</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+    <header></header>
+    <main>
+        <div class="wrapper" id="mainxxx" > 
+        </div>
+    </main>
+    <footer></footer>
+     <script>
+        keys = {
+            '0': {0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p',length:10},
+            '1': {0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l',length:9},
+            '2': {0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m',length:7},
+            'length': 3
+        }
+        hash = {
+            'q': 'qq.com',
+            'w': 'weibo.com',
+            'e': 'ele.me',
+            'r': 'renren.com',
+            't': 'taobao.com',
+            'y': 'youtube.com',
+            'u': 'wc.com',
+            'i': 'iqiyi.com',
+            'o': 'opear.com',
+            'p': undefined,
+            'a': 'acfun.com',
+            's': 'sohu.com',
+            'z': 'zhihu.com',
+        }
+            
+        
+
+        //取出localStorage 中的zzz 对应的 hash
+        hashInlocalStorage = JSON.parse(localStorage.getItem('zzz') || 'null')
+        if (hashInlocalStorage){
+            hash = hashInlocalStorage
+        }
+        
+
+        //遍历 keys，生成 kbd 标签
+        index = 0
+        while(index < keys['length']){
+            divxxx = document.createElement('div')
+            mainxxx.appendChild(divxxx)
+            row = keys[index]   //第一行数组  第二行数组  第三行数组
+
+            index2 = 0
+            while(index2 < row['length']){  //0-9   0-8  0-6
+                kbdxxx = document.createElement('kbd')
+                kbdxxx.textContent = row[index2]
+                buttonxxx = document.createElement('button')
+                buttonxxx.textContent = '编辑'
+                buttonxxx.id = row[index2]
+                buttonxxx.onclick = function(xzkjcnxlkcjlk){
+                    //xzkjcnxlkcjlk['target']就是用户点击的元素
+                    key = xzkjcnxlkcjlk['target']['id']  // q,w,e,r,t...
+                    x = prompt('请输入一个网址')  //qq.com
+                    hash[key] = x   //hash变更
+                    localStorage.setItem('zzz', JSON.stringify(hash))
+                }
+                kbdxxx.appendChild(buttonxxx)
+                divxxx.appendChild(kbdxxx)
+                index2 = index2 + 1
+            }
+            index = index + 1
+        }
+
+
+        document.onkeypress = function(xzkjcnxlkcjlk){
+            key = xzkjcnxlkcjlk['key']
+            website = hash[key]
+            console.log(website)
+            //location.href = 'http://' + website
+            window.open('http://' + website, '_blank')
+          }   
+    </script>
+       
+</body>
+</html>
